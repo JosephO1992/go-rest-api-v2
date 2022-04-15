@@ -1,3 +1,8 @@
 module github.com/JosephO1992/go-rest-api-v2
 
 go 1.16
+
+require (
+	github.com/jmoiron/sqlx v1.3.4 // indirect
+	github.com/lib/pq v1.10.5 // indirect
+)
