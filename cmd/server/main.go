@@ -1,8 +1,10 @@
 package main
 
 import (
+	"context"
 	"fmt"
 
+	"github.com/JosephO1992/go-rest-api-v2/inertnal/comment"
 	"github.com/JosephO1992/go-rest-api-v2/inertnal/db"
 )
 
@@ -20,7 +22,12 @@ func Run() error {
 		fmt.Println("failed to migrate database")
 		return err
 	}
-	fmt.Println("successfullt connected and pinged the database")
+
+	cmtService := comment.NewService(db)
+	fmt.Println(cmtService.GetComment(context.Background(),
+		"71c5d074-b6cf-11ec-b909-0242ac120002",
+	))
+
 	return nil
 }
 
