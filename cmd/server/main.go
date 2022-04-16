@@ -20,6 +20,7 @@ func Run() error {
 	if err := db.Ping(context.Background()); err != nil {
 		return err
 	}
+	fmt.Println("successfullt connected and pinged the database")
 	return nil
 }
 
