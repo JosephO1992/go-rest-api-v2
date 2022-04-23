@@ -1,11 +1,11 @@
 package main
 
 import (
-	"context"
 	"fmt"
 
 	"github.com/JosephO1992/go-rest-api-v2/inertnal/comment"
 	"github.com/JosephO1992/go-rest-api-v2/inertnal/db"
+	transportHttp "github.com/JosephO1992/go-rest-api-v2/inertnal/transport/http"
 )
 
 // Run - is going to be responsible for the instantiation of the server
@@ -25,18 +25,10 @@ func Run() error {
 
 	cmtService := comment.NewService(db)
 
-	cmtService.PostComment(
-		context.Background(),
-		comment.Comment{
-			ID:     "71c5d074-b6cf-11ec-b909-0242ac120002",
-			Slug:   "manual-test",
-			Author: "Joe",
-			Body:   "Hello World!",
-		},
-	)
-	fmt.Println(cmtService.GetComment(context.Background(),
-		"71c5d074-b6cf-11ec-b909-0242ac120002",
-	))
+	httpHandler := transportHttp.NewHandler(cmtService)
+	if err := httpHandler.Serve(); err != nil {
+		return err
+	}
 
 	return nil
 }
